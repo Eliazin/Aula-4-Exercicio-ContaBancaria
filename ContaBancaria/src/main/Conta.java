@@ -25,6 +25,9 @@ public class Conta {
                     + "\n6 - Sair"));
             if (opc == 2 || opc == 3 || opc == 4 || opc == 5) {
                 contaSelecionada = buscarConta(listaConta);
+                
+                if(contaSelecionada == null)
+                    continue;
             }
 
             switch (opc) {
@@ -42,26 +45,25 @@ public class Conta {
 
                 case 2:
 
-                    for (contaBancaria c1 : listaConta) {
-                        if (conta.equals(c1.getConta())) {
+                    for (contaBancaria c : listaConta) {
+                        if (conta.equals(c.getConta())) {
+
                             double valor = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor do saque:"));
                             JOptionPane.showMessageDialog(null, "Saque Realizado");
                             contaSelecionada.sacar(valor);
 
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Conta não encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
                         }
                     }
+
                     break;
 
                 case 3:
 
-                    for (contaBancaria c2 : listaConta) {
-                        if (conta.equals(c2.getConta())) {
+                    for (contaBancaria c : listaConta) {
+                        if (conta.equals(c.getConta())) {
                             double valor = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor do depósito:"));
                             contaSelecionada.depositar(valor);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Conta não encontrada", "Erro", JOptionPane.ERROR_MESSAGE);
+
 
                         }
                     }
@@ -72,8 +74,8 @@ public class Conta {
                     break;
 
                 case 5:
-                    for (contaBancaria c3 : listaConta) {
-                        if (conta.equals(c3.getConta())) {
+                    for (contaBancaria c : listaConta) {
+                        if (conta.equals(c.getConta())) {
                             valorLimite = Double.parseDouble(JOptionPane.showInputDialog("Valor do limite para atualizar: "));
                             contaSelecionada.setValorLimite(valorLimite);
 
@@ -91,12 +93,12 @@ public class Conta {
     private static contaBancaria buscarConta(ArrayList<contaBancaria> listaConta) {
         String msg = "Selecione o código da conta: ";
         for (contaBancaria c : listaConta) {
-            msg += c.verExtrato();
+            msg += c.verExtrato() + "\n";
         }
 
         String cod = JOptionPane.showInputDialog(msg);
         for (contaBancaria c : listaConta) {
-            if (c.getConta().equalsIgnoreCase(cod)) {
+            if (c.getConta().equals(cod)) {
                 return c;
             }
         }
