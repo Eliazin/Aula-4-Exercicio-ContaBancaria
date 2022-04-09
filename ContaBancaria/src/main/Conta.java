@@ -25,9 +25,10 @@ public class Conta {
                     + "\n6 - Sair"));
             if (opc == 2 || opc == 3 || opc == 4 || opc == 5) {
                 contaSelecionada = buscarConta(listaConta);
-                
-                if(contaSelecionada == null)
+
+                if (contaSelecionada == null) {
                     continue;
+                }
             }
 
             switch (opc) {
@@ -49,8 +50,15 @@ public class Conta {
                         if (conta.equals(c.getConta())) {
 
                             double valor = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor do saque:"));
-                            JOptionPane.showMessageDialog(null, "Saque Realizado");
-                            contaSelecionada.sacar(valor);
+
+                            if (valorSaldo > valor) {
+                                JOptionPane.showMessageDialog(null, "Saque Realizado");
+                                contaSelecionada.sacar(valor);
+                            }
+
+                            if (valorSaldo <= valor) {
+                                JOptionPane.showMessageDialog(null, "Saque não realizado", "Erro", JOptionPane.ERROR_MESSAGE);
+                            }
 
                         }
                     }
@@ -63,7 +71,6 @@ public class Conta {
                         if (conta.equals(c.getConta())) {
                             double valor = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor do depósito:"));
                             contaSelecionada.depositar(valor);
-
 
                         }
                     }

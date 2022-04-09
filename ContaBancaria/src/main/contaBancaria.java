@@ -80,7 +80,7 @@ public class contaBancaria {
 
     public boolean sacar(double valor) {
         if (valor <= verSaldo()) {
-            valorSaldo = valorSaldo - valor;
+            valor += valorSaldo - valor;
             return true;
         } else {
             return false;
